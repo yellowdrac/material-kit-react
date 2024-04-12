@@ -25,6 +25,8 @@ export default function UserTableRow({
   isVerified,
   status,
   handleClick,
+  emailX,
+  userNameX,
 }) {
   const [open, setOpen] = useState(null);
 
@@ -43,24 +45,15 @@ export default function UserTableRow({
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
 
-        <TableCell component="th" scope="row" padding="none">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
-            <Typography variant="subtitle2" noWrap>
-              {name}
-            </Typography>
-          </Stack>
-        </TableCell>
 
-        <TableCell>{company}</TableCell>
+
+
+        <TableCell>{userNameX}</TableCell>
 
         <TableCell>{role}</TableCell>
+        <TableCell>{emailX}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
 
-        <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
-        </TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -102,4 +95,6 @@ UserTableRow.propTypes = {
   role: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
+  userNameX: PropTypes.string,
+  emailX: PropTypes.string,
 };
