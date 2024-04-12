@@ -33,7 +33,7 @@ export default function UserPage() {
   const [error, setError] = useState(null);
   const [selected, setSelected] = useState([]);
 
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('userName');
 
   const [filterName, setFilterName] = useState('');
 
@@ -57,6 +57,8 @@ export default function UserPage() {
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
+    console.log("Este es el id que ordena")
+    console.log(id)
     if (id !== '') {
       setOrder(isAsc ? 'desc' : 'asc');
       setOrderBy(id);
@@ -65,7 +67,7 @@ export default function UserPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = userData.map((n) => n.name);
+      const newSelecteds = userData.map((n) => n.userName);
       setSelected(newSelecteds);
       return;
     }
