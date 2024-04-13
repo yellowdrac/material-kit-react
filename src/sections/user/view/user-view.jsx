@@ -20,7 +20,7 @@ import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
 import UserTableToolbar from '../user-table-toolbar';
-
+import {  applyFilter, getComparator } from '../utils';
 
 // ----------------------------------------------------------------------
 
@@ -64,6 +64,11 @@ export default function UserPage() {
       setOrderBy(id);
     }
   };
+  const dataFiltered = applyFilter({
+    inputData: userData,
+    comparator: getComparator(order, orderBy),
+    filterName,
+  });
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -124,7 +129,7 @@ export default function UserPage() {
         <Typography variant="h4">Users</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          New User
+          Nuevo Usuario
         </Button>
       </Stack>
 
@@ -155,7 +160,7 @@ export default function UserPage() {
               />
               <TableBody>
                 {userData && userData.length > 0 ? (
-                  userData
+                  dataFiltered
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <UserTableRow
@@ -185,6 +190,7 @@ export default function UserPage() {
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Filas por página"
         />
       </Card>
     </Container>
