@@ -21,6 +21,7 @@ import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
 import UserTableToolbar from '../user-table-toolbar';
 import {  applyFilter, getComparator } from '../utils';
+import { useAuth } from '../../../utils/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +37,7 @@ export default function UserPage() {
   const [orderBy, setOrderBy] = useState('userName');
 
   const [filterName, setFilterName] = useState('');
+  const {user, loginUser} = useAuth()
 
 // Llama a la función obtenerUsuarios para obtener y mostrar los datos de usuarios
   useEffect(() => {

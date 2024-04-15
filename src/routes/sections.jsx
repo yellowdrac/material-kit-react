@@ -1,7 +1,10 @@
 import { lazy, Suspense } from 'react';
-import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
-import DashboardLayout from 'src/layouts/dashboard';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import PrivateRoutes from '../utils/PrivateRoutes'
+import { AuthProvider } from '../utils/AuthContext'
+
+
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -12,36 +15,19 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // ----------------------------------------------------------------------
 
-export default function Router() {
-  const routes = useRoutes([
-    {
-      element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
-      ),
-      children: [
-        { element: <IndexPage />, index: true },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
-      ],
-    },
-    {
-      path: 'login',
-      element: <LoginPage />,
-    },
-    {
-      path: '404',
-      element: <Page404 />,
-    },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
-  ]);
+export default function RouterX() {
+  return(
 
-  return routes;
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<IndexPage/>}/>
+            <Route path="/user" element={<UserPage/>}/>
+            <Route path="*" element={<Page404/>}/>
+          </Route>
+        </Routes>
+      </AuthProvider>
+
+  )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -19,18 +19,27 @@ import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
-
+import { useAuth } from '../../utils/AuthContext'
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
+  const router = useRouter();
+  const {user, loginUser} = useAuth()
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, );
   const theme = useTheme();
 
-  const router = useRouter();
+
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    router.push('/dashboard');
+  const handleClick = (e) => {
+
+    loginUser("sxd")
+
   };
 
   const renderForm = (
