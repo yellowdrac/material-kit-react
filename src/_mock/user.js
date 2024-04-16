@@ -16,16 +16,20 @@ const getUsers = async () => {
     const userStringify = JSON.parse(user);
     console.log(userStringify.token);
     const accessToken = userStringify.token;
+    const refreshToken = userStringify.refreshToken;
     const response = await fetch('http://localhost:3000/api/users?query=all', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        'Authorization': `Bearer ${accessToken}`,
+        'Refresh-Token': `Bearer ${refreshToken}`
       }
     });
-    if(response.status===403){
+    console.log(response);
+
+    if(response.status===403 || response.status===401){
         localStorage.removeItem('user');
-      window.location.reload();
+        window.location.reload();
     }
     if (!response.ok) {
 

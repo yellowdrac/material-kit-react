@@ -44,8 +44,16 @@ export default function UserPage() {
     const fetchData = async () => {
       try {
         const data = await obtenerUsuarios(); // Obtener los datos de usuarios
+        console.log(data.users)
+        if(data.newToken){
+          const storedUser = localStorage.getItem('user');
+          const userX = JSON.parse(storedUser);
+          userX.token = data.newToken;
+          localStorage.setItem('user', JSON.stringify(userX)); // Actualiza el usuario en el almacenamiento local
+          console.log("He puesto un nuevo token");
 
-        setUserData(data); // Actualizar el estado con los datos obtenidos
+        }
+        setUserData(data.users); // Actualizar el estado con los datos obtenidos
         setLoading(false); // Indicar que la carga ha finalizado
       } catch (err) {
         setError(err); // Manejar errores de obtención de datos
