@@ -15,7 +15,7 @@ import { RouterLink } from 'src/routes/components';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { account } from 'src/_mock/account';
+import { account } from 'src/_mock/accountData';
 
 import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';

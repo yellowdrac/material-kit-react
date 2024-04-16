@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback, createContext, useContext } from 'react';
 import PropTypes from 'prop-types';
 
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -16,8 +17,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const loginUser = useCallback(async (userInfo) => {
+    console.log('userInfo',userInfo)
+
     try {
-      // Lógica de autenticación
       setUser(userInfo);
       localStorage.setItem('user', JSON.stringify(userInfo));
     } catch (error) {

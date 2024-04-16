@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -20,6 +20,7 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import { useAuth } from '../../utils/AuthContext'
+import LoginUsuario from '../../_mock/account';
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
@@ -31,23 +32,28 @@ export default function LoginView() {
     }
   }, );
   const theme = useTheme();
-
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = (e) => {
-
-    loginUser("sxd")
+  const handleClick = async (e) => {
+    console.log('emailRef',emailRef.current.value)
+    console.log('passwordRef',passwordRef.current.value)
+    const data =await LoginUsuario(emailRef.current.value, passwordRef.current.value);
+    console.log(data)
+    loginUser(data)
 
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField inputRef={emailRef} name="email" label="Email address" />
 
         <TextField
+          inputRef={passwordRef}
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}

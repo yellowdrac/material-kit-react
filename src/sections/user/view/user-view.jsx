@@ -44,6 +44,7 @@ export default function UserPage() {
     const fetchData = async () => {
       try {
         const data = await obtenerUsuarios(); // Obtener los datos de usuarios
+
         setUserData(data); // Actualizar el estado con los datos obtenidos
         setLoading(false); // Indicar que la carga ha finalizado
       } catch (err) {
